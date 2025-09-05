@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "com.example.mixin",
+	"package": "dev.gamelord2011.ags_reborn.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"Boom"
 	],
 	"injectors": {
 		"defaultRequire": 1

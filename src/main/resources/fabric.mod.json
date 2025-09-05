@@ -1,39 +1,29 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "anti-grian-switch-reborn",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Anti Grian Switch Reborn",
+	"description": "This recreates the Anti Grian Switch glitch from Hermitcraft season 9.",
 	"authors": [
-		"Me!"
+		"GameLord2011 (Proffessional Noob)"
 	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
-	"environment": "*",
+	"icon": "assets/anti-grian-switch-reborn/icon.png",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"com.example.ExampleMod"
-		],
 		"client": [
-			"com.example.ExampleModClient"
+			"dev.gamelord2011.ags_reborn.AntiGrianSwitchReborn"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
+		"anti-grian-switch-reborn.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.14",
+		"fabricloader": ">=0.17.2",
 		"minecraft": "~1.21.8",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"fabric-key-binding-api-v1": "*" 
 	},
 	"suggests": {
 		"another-mod": "*"
