@@ -1,9 +1,3 @@
-# Fabric Example Mod
+# Anti-Grian Switch reborn
 
-## Setup
-
-For setup instructions please see the [fabric documentation page](https://docs.fabricmc.net/develop/getting-started/setting-up-a-development-environment) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This is a reproduction of the Anti-Grian switch from Hermitcraft season 9, and Anti-Gem switch from Hermitcraft season 10. It allows you to toggle an error that existed in the Continuity mod which did not play nice with sodium rendercode. But this can be used anywhere, that's right, anywhere! With (I hope) any mod. Right now, you toggle it using the ` key, I will probably add a config screen later.
