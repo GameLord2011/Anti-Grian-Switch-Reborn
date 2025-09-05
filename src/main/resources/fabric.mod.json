@@ -8,7 +8,7 @@
 		"GameLord2011 (Proffessional Noob)"
 	],
 	"license": "CC0-1.0",
-	"icon": "assets/anti-grian-switch-reborn/icon.png",
+	"icon": "assets/ags_reborn/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
