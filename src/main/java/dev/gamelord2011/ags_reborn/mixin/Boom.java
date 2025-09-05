@@ -16,8 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class Boom {
 	@Inject(
 		method = "render(Lnet/minecraft/client/render/entity/state/FallingBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
-        at = @At("HEAD"),
-        cancellable = true
+        at = @At("HEAD")
 	)
 	private void inijectCrash(
 		FallingBlockEntityRenderState state,
