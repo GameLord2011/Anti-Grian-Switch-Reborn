@@ -4,7 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
+//import net.minecraft.client.util.InputUtil;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -23,10 +23,9 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
     // Fabric API client entrypoint (if needed, move this to a ClientModInitializer class)
     public void onInitializeClient() {
         TGG = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "toggle.grian.keybind", // The translation key of the keybinding's name
-            InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+            "Anti Grian Switch", // The translation key of the keybinding's name
             GLFW.GLFW_KEY_GRAVE_ACCENT, // The keycode of the key
-            "what.do.you.do.with.this" // The translation key of the keybinding's category.
+            KeyBinding.Category.GAMEPLAY
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
