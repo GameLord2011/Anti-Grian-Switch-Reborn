@@ -37,8 +37,21 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() == GLFW.GLFW_KEY_N) {
-                while (TGG.wasPressed() && ((GLFW.glfwGetKey(client.getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS) || (GLFW.glfwGetKey(client.getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS))) {
+            if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() == GLFW.GLFW_KEY_Y) {
+                while (
+                        TGG.wasPressed() && 
+                        (
+                            (
+                                GLFW.glfwGetKey(
+                                    client.getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL
+                                ) == GLFW.GLFW_PRESS
+                            ) || 
+                            (GLFW.glfwGetKey(
+                                client.getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL
+                            ) == GLFW.GLFW_PRESS
+                            )
+                        )
+                    ) {
                     enableFallingEntityBug = !enableFallingEntityBug;
                     MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
                         net.minecraft.text.Text.literal(
@@ -47,8 +60,8 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
                     );
                 }
             } else {
-                if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() != GLFW.GLFW_KEY_Y) {
-                    CCB.setBoundKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_Y));
+                if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() != GLFW.GLFW_KEY_N) {
+                    CCB.setBoundKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_N));
                 }
                 while (TGG.wasPressed()) {
                     enableFallingEntityBug = !enableFallingEntityBug;
