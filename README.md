@@ -8,7 +8,7 @@ By default, you configure the anti Grian switch using `CTRL + G`. You use the ke
 
 ## How it works
 
-This mod takes advantage of a strange quirk in how minecraft renders. This is based off a cross-compatibility error between [Continuity](https://modrinth.com/mod/continuity) and [Sodium](https://modrinth.com/mod/sodium) in 1.19 versions when [Indium](https://modrinth.com/mod/indium) where Sodium's rendering engine did not handle Fabric Rendering API calls correctly, and threw null pointer errors. My mod uses this code:
+This mod takes advantage of a strange quirk in how minecraft renders. This is based off a cross-compatibility error between [Continuity](https://modrinth.com/mod/continuity) and [Sodium](https://modrinth.com/mod/sodium) in 1.19 versions when [Indium](https://modrinth.com/mod/indium) is not present where Sodium's rendering engine did not handle Fabric Rendering API calls correctly, and threw null pointer errors. My mod uses this code:
 
 ```Java
 if(AntiGrianSwitchReborn.enableFallingEntityBug) {
