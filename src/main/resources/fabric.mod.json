@@ -10,6 +10,7 @@
 	"license": "MIT",
 	"icon": "assets/ags_reborn/icon.png",
 	"environment": "client",
+	"environments": "client",
 	"entrypoints": {
 		"client": [
 			"dev.gamelord2011.ags_reborn.AntiGrianSwitchReborn"
