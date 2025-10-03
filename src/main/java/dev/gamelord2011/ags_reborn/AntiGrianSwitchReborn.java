@@ -38,7 +38,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() == GLFW.GLFW_KEY_Y) {
-                while (
+                if(
                         TGG.wasPressed() && 
                         (
                             (
@@ -63,7 +63,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
                 if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() != GLFW.GLFW_KEY_N) {
                     CCB.setBoundKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_N));
                 }
-                while (TGG.wasPressed()) {
+                if(TGG.wasPressed()) {
                     enableFallingEntityBug = !enableFallingEntityBug;
                     MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
                         net.minecraft.text.Text.literal(
