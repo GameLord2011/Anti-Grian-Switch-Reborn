@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "dev.gamelord2011.ags_reborn.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"Boom"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
