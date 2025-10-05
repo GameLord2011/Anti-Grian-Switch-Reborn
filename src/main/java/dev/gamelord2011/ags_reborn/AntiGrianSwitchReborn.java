@@ -1,77 +1,82 @@
 package dev.gamelord2011.ags_reborn;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-//import net.minecraft.client.util.InputUtil;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import org.lwjgl.glfw.GLFW;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.input.Keyboard;
 
-public class AntiGrianSwitchReborn implements ClientModInitializer {
-	public static final String MOD_ID = "anti-grian-switch-reborn";
+@Mod(modid = AntiGrianSwitchReborn.MOD_ID, clientSideOnly = true)
+public class AntiGrianSwitchReborn {
+    public static final String MOD_ID = "anti-grian-switch-reborn";
+
     public static boolean enableFallingEntityBug = false;
+
     private static KeyBinding TGG;
     private static KeyBinding CCB;
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        // Register keybindings
+        TGG = new KeyBinding("key.agsreborn.tgg", Keyboard.KEY_G, "key.categories.gameplay");
+        CCB = new KeyBinding("key.agsreborn.ccb", Keyboard.KEY_Y, "key.categories.gameplay");
 
-    // Fabric API client entrypoint (if needed, move this to a ClientModInitializer class)
-    public void onInitializeClient() {
-        TGG = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Anti Grian Switch", // The translation key of the keybinding's name
-            GLFW.GLFW_KEY_G, // The keycode of the key
-            KeyBinding.Category.GAMEPLAY
-        ));
+        ClientRegistry.registerKeyBinding(TGG);
+        ClientRegistry.registerKeyBinding(CCB);
 
-        CCB = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Should Control Be Held (AGS Reborn)(y/n)", // The translation key of the keybinding's name
-            GLFW.GLFW_KEY_Y,
-            KeyBinding.Category.GAMEPLAY
-        ));
+        // Register event handlers
+        MinecraftForge.EVENT_BUS.register(this);
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() == GLFW.GLFW_KEY_Y) {
-                if(
-                        TGG.wasPressed() && 
-                        (
-                            (
-                                GLFW.glfwGetKey(
-                                    client.getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL
-                                ) == GLFW.GLFW_PRESS
-                            ) || 
-                            (GLFW.glfwGetKey(
-                                client.getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL
-                            ) == GLFW.GLFW_PRESS
-                            )
-                        )
-                    ) {
-                    enableFallingEntityBug = !enableFallingEntityBug;
-                    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
-                        net.minecraft.text.Text.literal(
-                            "Anti Grian Switch: " + (AntiGrianSwitchReborn.enableFallingEntityBug ? "ON" : "OFF")
-                        )
-                    );
-                }
-            } else {
-                if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() != GLFW.GLFW_KEY_N) {
-                    CCB.setBoundKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_N));
-                }
-                if(TGG.wasPressed()) {
-                    enableFallingEntityBug = !enableFallingEntityBug;
-                    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
-                        net.minecraft.text.Text.literal(
-                            "Anti Grian Switch: " + (AntiGrianSwitchReborn.enableFallingEntityBug ? "ON" : "OFF")
-                        )
-                    );
-                }
+        System.out.println(MOD_ID + " initialized");
+    }
+
+    @SubscribeEvent
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        if (Minecraft.getMinecraft().world == null) return; // Avoid NPE in menus
+
+        boolean controlHeld = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+
+        if (CCB.isKeyDown()) {
+            if (TGG.isPressed() && controlHeld) {
+                toggleFeature();
             }
-        });
+        } else {
+            // If CCB not Y, set it to N
+            if (CCB.getKeyCode() != Keyboard.KEY_N) {
+                CCB.setKeyCode(Keyboard.KEY_N);
+            }
+            if (TGG.isPressed()) {
+                toggleFeature();
+            }
+        }
+    }
+
+    private void toggleFeature() {
+        enableFallingEntityBug = !enableFallingEntityBug;
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
+                new TextComponentString(
+                        "Anti Grian Switch: " + (enableFallingEntityBug ? "ON" : "OFF")
+                )
+        );
+    }
+
+    // Deliberately crash rendering of falling blocks
+    @SubscribeEvent
+    public void onRenderWorld(RenderWorldLastEvent event) {
+        if (!enableFallingEntityBug) return;
+
+        for (Object obj : Minecraft.getMinecraft().world.loadedEntityList) {
+            if (obj instanceof EntityFallingBlock) {
+                Object renderer = null;
+                renderer.toString(); // deliberate crash
+            }
+        }
     }
 }
