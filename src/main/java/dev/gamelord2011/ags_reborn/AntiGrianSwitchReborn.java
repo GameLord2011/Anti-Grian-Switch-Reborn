@@ -31,7 +31,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
         ));
 
         CCB = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Should Control Be Held (AGS Reborn)(y/n)", // The translation key of the keybinding's name
+            "Should Control Be Held y/n(AGS Reborn)", // The translation key of the keybinding's name
             GLFW.GLFW_KEY_Y,
             KeyBinding.Category.GAMEPLAY
         ));
