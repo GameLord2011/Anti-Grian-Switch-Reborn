@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "anti-grian-switch-reborn",
 	"version": "${version}",
-	"name": "Anti Grian Switch Reborn",
+	"name": "Anti Grian Switch Reborn (slightly more convienent version)",
 	"description": "This recreates the Anti Grian Switch glitch from Hermitcraft season 9. Configure in the Minecraft keybind configuration screen.",
 	"authors": [
 		"GameLord2011 (Proffessional Noob)"

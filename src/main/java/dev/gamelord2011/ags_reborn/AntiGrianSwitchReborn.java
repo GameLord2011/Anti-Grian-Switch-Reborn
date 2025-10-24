@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-//import net.minecraft.client.util.InputUtil;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -17,21 +16,17 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
     private static KeyBinding TGG;
     private static KeyBinding CCB;
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // Fabric API client entrypoint (if needed, move this to a ClientModInitializer class)
     public void onInitializeClient() {
         TGG = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Anti Grian Switch", // The translation key of the keybinding's name
-            GLFW.GLFW_KEY_G, // The keycode of the key
+            "Anti Grian Switch",
+            GLFW.GLFW_KEY_G,
             KeyBinding.Category.GAMEPLAY
         ));
 
         CCB = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Should Control Be Held y/n(AGS Reborn)", // The translation key of the keybinding's name
+            "Should Control Be Held y/n(AGS Reborn)",
             GLFW.GLFW_KEY_Y,
             KeyBinding.Category.GAMEPLAY
         ));
