@@ -2,74 +2,68 @@ package dev.gamelord2011.ags_reborn;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-//import net.minecraft.client.util.InputUtil;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.util.Identifier;
+import net.minecraft.text.Text;
+
 import org.lwjgl.glfw.GLFW;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AntiGrianSwitchReborn implements ClientModInitializer {
-	public static final String MOD_ID = "anti-grian-switch-reborn";
+	public static final String MOD_ID = "ags_reborn";
     public static boolean enableFallingEntityBug = false;
     private static KeyBinding TGG;
     private static KeyBinding CCB;
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final KeyBinding.Category AGSR_CONFIG = KeyBinding.Category.create(
+        Identifier.of("agsr.config.keybinds")
+    );
 
-    // Fabric API client entrypoint (if needed, move this to a ClientModInitializer class)
+    private void toggleBug() {
+        enableFallingEntityBug = !enableFallingEntityBug;
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
+            Text.translatable("agsr.activate.message." + (enableFallingEntityBug ? "on" : "off"))
+        );
+    }
+
     public void onInitializeClient() {
         TGG = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Anti Grian Switch", // The translation key of the keybinding's name
-            GLFW.GLFW_KEY_G, // The keycode of the key
-            KeyBinding.Category.GAMEPLAY
+            "agsr.config.keybind",
+            GLFW.GLFW_KEY_G,
+            AGSR_CONFIG
         ));
 
         CCB = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "Should Control Be Held y/n(AGS Reborn)", // The translation key of the keybinding's name
+            "agsr.config.ctrlheld",
             GLFW.GLFW_KEY_Y,
-            KeyBinding.Category.GAMEPLAY
+            AGSR_CONFIG
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() == GLFW.GLFW_KEY_Y) {
-                if(
-                        TGG.wasPressed() && 
-                        (
-                            (
-                                GLFW.glfwGetKey(
-                                    client.getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL
-                                ) == GLFW.GLFW_PRESS
-                            ) || 
-                            (GLFW.glfwGetKey(
-                                client.getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL
-                            ) == GLFW.GLFW_PRESS
-                            )
-                        )
-                    ) {
-                    enableFallingEntityBug = !enableFallingEntityBug;
-                    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
-                        net.minecraft.text.Text.literal(
-                            "Anti Grian Switch: " + (AntiGrianSwitchReborn.enableFallingEntityBug ? "ON" : "OFF")
-                        )
-                    );
+            int boundKey = KeyBindingHelper.getBoundKeyOf(CCB).getCode();
+            boolean tggPressed = TGG.wasPressed();
+        
+            if (boundKey == GLFW.GLFW_KEY_Y) {
+                boolean ctrlPressed = 
+                GLFW.glfwGetKey(client.getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
+                || GLFW.glfwGetKey(client.getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
+        
+                if (tggPressed && ctrlPressed) {
+                    toggleBug();
                 }
             } else {
-                if(KeyBindingHelper.getBoundKeyOf(CCB).getCode() != GLFW.GLFW_KEY_N) {
-                    CCB.setBoundKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_N));
+                if (boundKey != GLFW.GLFW_KEY_N) {
+                    CCB.setBoundKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_Y));
                 }
-                if(TGG.wasPressed()) {
-                    enableFallingEntityBug = !enableFallingEntityBug;
-                    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
-                        net.minecraft.text.Text.literal(
-                            "Anti Grian Switch: " + (AntiGrianSwitchReborn.enableFallingEntityBug ? "ON" : "OFF")
-                        )
-                    );
+                if (tggPressed) {
+                    toggleBug();
                 }
             }
         });

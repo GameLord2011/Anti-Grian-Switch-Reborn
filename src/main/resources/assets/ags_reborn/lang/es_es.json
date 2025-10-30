@@ -1,0 +1,7 @@
+{
+    "key.category.minecraft.agsr.config.keybinds": "Interruptor Anti Grian Renacido",
+    "agsr.config.keybind": "Interruptor Anti Grian",
+    "agsr.config.ctrlheld": "¿Se debe mantener pulsado ctrl? (Y/N)",
+    "agsr.activate.message.on": "Interruptor Anti Grian: ACTIVADO",
+    "agsr.activate.message.off": "Interruptor Anti Grian: DESACTIVADO"
+}

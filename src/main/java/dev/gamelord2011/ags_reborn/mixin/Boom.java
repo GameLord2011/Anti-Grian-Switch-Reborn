@@ -6,7 +6,6 @@ import net.minecraft.client.render.entity.FallingBlockEntityRenderer;
 import net.minecraft.client.render.entity.state.FallingBlockEntityRenderState;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-//import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 
 import org.spongepowered.asm.mixin.Mixin;

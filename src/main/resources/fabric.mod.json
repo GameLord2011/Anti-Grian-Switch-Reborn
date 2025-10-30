@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "anti-grian-switch-reborn",
+	"id": "ags_reborn",
 	"version": "${version}",
 	"name": "Anti Grian Switch Reborn",
 	"description": "This recreates the Anti Grian Switch glitch from Hermitcraft season 9. Configure in the Minecraft keybind configuration screen.",
@@ -10,7 +10,6 @@
 	"license": "MIT",
 	"icon": "assets/ags_reborn/icon.png",
 	"environment": "client",
-	"environments": "client",
 	"entrypoints": {
 		"client": [
 			"dev.gamelord2011.ags_reborn.AntiGrianSwitchReborn"
@@ -19,6 +18,9 @@
 	"mixins": [
 		"anti-grian-switch-reborn.mixins.json"
 	],
+	"custom": {
+		"environments": "client"
+	},
 	"depends": {
 		"fabricloader": ">=0.17.2",
 		"minecraft": "~1.21.10",
