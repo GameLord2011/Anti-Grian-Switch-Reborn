@@ -18,11 +18,23 @@
 	"mixins": [
 		"anti-grian-switch-reborn.mixins.json"
 	],
+	"contact": {
+		"issues": "https://github.com/GameLord2011/Anti-Grian-Switch-Reborn/issues",
+		"sources": "https://github.com/GameLord2011/Anti-Grian-Switch-Reborn"
+	},
 	"custom": {
-		"environments": "client"
+		"environments": "client",
+		"parent": "fabric-api",
+		"modmenu": {
+			"links": {
+				"modmenu.modrinth": "https://modrinth.com/mod/anti-grian-switch-reborn",
+				"modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/anti-grian-switch-reborn",
+				"modmenu.source": "https://github.com/GameLord2011/Anti-Grian-Switch-Reborn"
+			}
+		}
 	},
 	"depends": {
-		"fabricloader": ">=0.17.2",
+		"fabricloader": ">=0.17.3",
 		"minecraft": "~1.21.10",
 		"java": ">=21",
 		"fabric-api": "*",
