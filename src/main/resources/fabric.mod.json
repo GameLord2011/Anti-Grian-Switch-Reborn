@@ -8,6 +8,7 @@
 		"GameLord2011 (Proffessional Noob)"
 	],
 	"license": "MIT",
+	"environments": "client",
 	"icon": "assets/ags_reborn/icon.png",
 	"environment": "client",
 	"entrypoints": {
@@ -23,7 +24,6 @@
 		"sources": "https://github.com/GameLord2011/Anti-Grian-Switch-Reborn"
 	},
 	"custom": {
-		"environments": "client",
 		"parent": "fabric-api",
 		"modmenu": {
 			"links": {
