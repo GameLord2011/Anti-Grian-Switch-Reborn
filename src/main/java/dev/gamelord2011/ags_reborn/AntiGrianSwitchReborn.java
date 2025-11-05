@@ -20,28 +20,32 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
     public static boolean enableFallingEntityBug = false;
     private static KeyBinding TGG;
     private static KeyBinding CCB;
+    private static final AgsLang agsLang = new AgsLang();
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final KeyBinding.Category AGSR_CONFIG = KeyBinding.Category.create(
-        Identifier.of("agsr.config.keybinds")
+        Identifier.of(MOD_ID, agsLang.keyConfigScreen.toString())
     );
 
     private void toggleBug() {
         enableFallingEntityBug = !enableFallingEntityBug;
         MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(
-            Text.translatable("agsr.activate.message." + (enableFallingEntityBug ? "on" : "off"))
+            Text.of(enableFallingEntityBug ? agsLang.keySwitchOn() : agsLang.keySwitchOff())
         );
     }
 
     public void onInitializeClient() {
+        // Initialize translations once at startup
+        agsLang.constructLanguageSet();
+
         TGG = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "agsr.config.keybind",
+            agsLang.keySwitch(),
             GLFW.GLFW_KEY_G,
             AGSR_CONFIG
         ));
 
         CCB = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "agsr.config.ctrlheld",
+            agsLang.keyControlToggle(),
             GLFW.GLFW_KEY_Y,
             AGSR_CONFIG
         ));

@@ -20,7 +20,7 @@ public class Boom {
     method = "render(Lnet/minecraft/client/render/entity/state/FallingBlockEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
     at = @At("HEAD")
 )
-private void inijectCrash(
+private void injectCrash(
     FallingBlockEntityRenderState fallingBlockEntityRenderState,
     MatrixStack matrixStack,
     OrderedRenderCommandQueue orderedRenderCommandQueue,

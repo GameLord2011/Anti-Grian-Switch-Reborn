@@ -4,8 +4,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"Boom",
-		"TranslationStorageMixin",
-		"TranslationStorageAccessor"
+		"TranslationStorageMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
