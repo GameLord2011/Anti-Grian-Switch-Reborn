@@ -1,140 +1,201 @@
 package dev.gamelord2011.ags_reborn;
 
-import java.nio.charset.StandardCharsets;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
-
-import net.minecraft.client.MinecraftClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AgsLang {
-    private static String getRandomKey() {
-        try {
-                String uuids = 
-                    UUID.randomUUID().toString() + UUID.randomUUID().toString();
-                MessageDigest digest = MessageDigest.getInstance("SHA3-512");
-                StringBuilder hexString = new StringBuilder();
+    private static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.AgsLang");
 
-                byte[] hash = digest.digest(uuids.getBytes(StandardCharsets.UTF_8));
+    // Stable translation keys
+    private static final String KEY_CATEGORY = "key.categories.ags_reborn";
+    private static final String KEY_SWITCH = "key.ags_reborn.switch";
+    private static final String KEY_CONTROL_TOGGLE = "key.ags_reborn.control_toggle";
+    private static final String KEY_SWITCH_ON = "message.ags_reborn.switch_on";
+    private static final String KEY_SWITCH_OFF = "message.ags_reborn.switch_off";
 
-                for (byte b : hash) {
-                    String hex = Integer.toHexString(0xff & b);
-                    if (hex.length() == 1) hexString.append('0');
-                    hexString.append(hex);
-                }
+    // Runtime-generated keys
+    private static final String KEY_CATEGORY_RUNTIME;
+    private static final String KEY_SWITCH_RUNTIME;
+    private static final String KEY_CONTROL_TOGGLE_RUNTIME;
+    private static final String KEY_SWITCH_ON_RUNTIME;
+    private static final String KEY_SWITCH_OFF_RUNTIME;
 
-                return 
-                    UUID.randomUUID().toString() + "." +
-                    UUID.randomUUID().toString() + "." +
-                    hexString.toString();
-            } catch (NoSuchAlgorithmException e) {
-                System.out.println("[ERROR]: No such hash algorithim.");
-                return 
-                    UUID.randomUUID().toString() + "." +
-                    UUID.randomUUID().toString() + "." +
-                    UUID.randomUUID().toString();
-            }
+    static {
+        final String prefix = "ags_reborn.dynamic.";
+        KEY_CATEGORY_RUNTIME = prefix + UUID.randomUUID();
+        KEY_SWITCH_RUNTIME = prefix + UUID.randomUUID();
+        KEY_CONTROL_TOGGLE_RUNTIME = prefix + UUID.randomUUID();
+        KEY_SWITCH_ON_RUNTIME = prefix + UUID.randomUUID();
+        KEY_SWITCH_OFF_RUNTIME = prefix + UUID.randomUUID();
+
+        LOGGER.info(
+            "Generated runtime keys - category={}, switch={}, control={}, on={}, off={}",
+            KEY_CATEGORY_RUNTIME,
+            KEY_SWITCH_RUNTIME,
+            KEY_CONTROL_TOGGLE_RUNTIME,
+            KEY_SWITCH_ON_RUNTIME,
+            KEY_SWITCH_OFF_RUNTIME
+        );
     }
 
-    /*
-        The sets are in the order of:
-        keybind configuration screen,
-        keybind for the swich,
-        keybind for wether or not control should be held,
-        turning the anti grian switch on,
-        turning the anti grian switch off.
-    */
+    // Index constants
+    private static final int IDX_CATEGORY = 0;
+    private static final int IDX_SWITCH = 1;
+    private static final int IDX_CONTROL = 2;
+    private static final int IDX_ON = 3;
+    private static final int IDX_OFF = 4;
 
-    Set<String> EnglishStrings = Set.of(
-        "Anti Grian Switch Reborn",
-        "Anti Grian Switch",
-        "Should Control Be Held (Y/N)",
-        "Anti Grian Switch: ON",
-        "Anti Grian Switch: OFF"
+    // Language map
+    private static final Map<String, String[]> LANGUAGE_MAP = Map.ofEntries(
+        Map.entry("en_us", new String[]{
+            "Anti Grian Switch Reborn",
+            "Anti Grian Switch",
+            "Should Control Be Held (Y/N)",
+            "Anti Grian Switch: ON",
+            "Anti Grian Switch: OFF"
+        }),
+        Map.entry("es_es", new String[]{
+            "Interruptor Anti Grian Renacido",
+            "Interruptor Anti Grian",
+            "¿Se debe mantener pulsado ctrl? (Y/N)",
+            "Interruptor Anti Grian: ACTIVADO",
+            "Interruptor Anti Grian: DESACTIVADO"
+        }),
+        Map.entry("pl_pl", new String[]{ // Credit: @A-Potion and @Magicninja7. Also, SIX-SEVEN!
+            "Nowy Tryb Anti Grain",
+            "Tryb Anti Grian",
+            "Czy należy trzymać ctrl? (Y/N)",
+            "Tryb Anti Grian: WŁĄCZONY",
+            "Tryb Anti Grian: WYŁĄCZONY"
+        }),
+        Map.entry("en_pt", new String[]{
+            "Anti-Grian Switch Hoist'd Again",
+            "Anti-Grian Lever",
+            "Be ye holdin’ Control? (Y/N)",
+            "Anti-Grian Lever: Aye!",
+            "Anti-Grian Lever: Nay!"
+        }),
+        Map.entry("lol_us", new String[]{
+            "Anti-Grian Swich Rebornded",
+            "Anti-Grian Swich",
+            "Hold CTRL? (Y/N)",
+            "Anti-Grian Swich: YUS",
+            "Anti-Grian Swich: NU"
+        }),
+        Map.entry("enws", new String[]{
+            "Anti-Grian Lever Reawaken’d",
+            "Anti-Grian Lever",
+            "Shall Control Be Held? (Yea/Nay)",
+            "Anti-Grian Lever: Engaged",
+            "Anti-Grian Lever: Disengaged"
+        }),
+        Map.entry("enp", new String[]{
+            "Anti-Grian Toggle Born Anew",
+            "Anti-Grian Toggle",
+            "Should Grasp-Key Be Held? (Y/N)",
+            "Anti-Grian Toggle: ON",
+            "Anti-Grian Toggle: OFF"
+        }),
+        Map.entry("en_ud", new String[]{
+            "uɹoqǝɹ ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
+            "ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
+            "(N/⅄) plǝɥ ǝq lɐɹʇuoƆ plnoɥS",
+            "NO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
+            "ℲℲO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀"
+        }),
+        Map.entry("tlh_aa", new String[]{
+            "Grian wIvHa' chu' Ha'DIbaH",
+            "Grian wIvHa' SeHlaw",
+            "SeHlaw yI'uch'a'? (HIja'/ghobe')",
+            "Grian wIvHa': Qap",
+            "Grian wIvHa': Qapbe'"
+        }),
+        Map.entry("qya_aa", new String[]{
+            "Anti-Grian Lelya Ata",
+            "Anti-Grian Lelya",
+            "Nai mapa i cotumo? (Y/N)",
+            "Anti-Grian Lelya: Calima",
+            "Anti-Grian Lelya: Lómëa"
+        })
     );
 
-    Set<String> SpanishStrings = Set.of(
-        "Interruptor Anti Grian Renacido",
-        "Interruptor Anti Grian",
-        "¿Se debe mantener pulsado ctrl? (Y/N)",
-        "Interruptor Anti Grian: ACTIVADO",
-        "Interruptor Anti Grian: DESACTIVADO"
-    );
+    public static Map<String, String> constructLanguageSet(String langCode) {
+        LOGGER.info("constructLanguageSet called for langCode={}", langCode);
 
-    // Credit: @A-Potion and @Magicninja7
-    Set<String> PolishStrings = Set.of(
-        "Nowy Tryb Anti Grain",
-        "Tryb Anti Grian",
-        "Czy należy trzymać ctrl? (Y/N)",
-        "Tryb Anti Grian: WŁĄCZONY",
-        "Tryb Anti Grian: WYŁĄCZONY"
-    );
+        final String[] values = LANGUAGE_MAP.getOrDefault(langCode, LANGUAGE_MAP.get("en_us"));
+        Map<String, String> translationsMap = new LinkedHashMap<>();
 
-    private static Map<String, String> Lang = null;
-    private static List<String> orderedKeys = null;
+        translationsMap.put(KEY_CATEGORY_RUNTIME, values[IDX_CATEGORY]);
 
-    public StringBuilder keyConfigScreen = new StringBuilder("Anti Grian Switch Reborn");
-    
-    private void initializeIfNeeded() {
-        if (Lang == null) {
-            Lang = new LinkedHashMap<>();
-            orderedKeys = new ArrayList<>();
-        }
-    }
+        String[] fallbackKeys = {
+            "key.categories." + KEY_CATEGORY_RUNTIME,
+            "key.category." + KEY_CATEGORY_RUNTIME,
+            "key.category.minecraft." + KEY_CATEGORY_RUNTIME,
+            "key.category.ags_reborn." + KEY_CATEGORY_RUNTIME,
+            "key.categories.ags_reborn." + KEY_CATEGORY_RUNTIME
+        };
 
-    public String keySwitch() {
-        return orderedKeys.size() > 1 ? orderedKeys.get(1) : "default.switch";
-    }
-
-    public String keyControlToggle() {
-        return orderedKeys.size() > 2 ? orderedKeys.get(2) : "default.control.toggle";
-    }
-
-    public String keySwitchOn() {
-        return orderedKeys.size() > 3 ? orderedKeys.get(3) : "default.switch.on";
-    }
-
-    public String keySwitchOff() {
-        return orderedKeys.size() > 4 ? orderedKeys.get(4) : "default.switch.off";
-    }
-
-    private String getCurrentLangCode() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        return client.getLanguageManager().getLanguage();
-    }
-
-    public Map<String, String> constructLanguageSet() {
-        if (Lang != null) {
-            return Lang;
+        for (String fallbackKey : fallbackKeys) {
+            translationsMap.put(fallbackKey, values[IDX_CATEGORY]);
         }
 
-        initializeIfNeeded();
-        String langCode = getCurrentLangCode();
-        Set<String> selectedSet;
+        translationsMap.put(KEY_SWITCH_RUNTIME, values[IDX_SWITCH]);
+        translationsMap.put(KEY_CONTROL_TOGGLE_RUNTIME, values[IDX_CONTROL]);
+        translationsMap.put(KEY_SWITCH_ON_RUNTIME, values[IDX_ON]);
+        translationsMap.put(KEY_SWITCH_OFF_RUNTIME, values[IDX_OFF]);
 
-        if (langCode.equals("en_us")) {
-            selectedSet = EnglishStrings;
-        } else if (langCode.equals("es_es")) {
-            selectedSet = SpanishStrings;
-        } else if (langCode.equals("pl_pl")) {
-            selectedSet = PolishStrings;
-        } else {
-            selectedSet = EnglishStrings;
-        }
+        LOGGER.info("constructLanguageSet produced {} entries for lang {}", translationsMap.size(), langCode);
+        return translationsMap;
+    }
 
-        for (String value : selectedSet) {
-            String key = getRandomKey();
-            Lang.put(key, value);
-            orderedKeys.add(key);
-        }
+    public static String getCategoryKey() {
+        return KEY_CATEGORY;
+    }
 
-        return Lang;
+    public static String getKeySwitch() {
+        return KEY_SWITCH;
+    }
+
+    public static String getKeyControlToggle() {
+        return KEY_CONTROL_TOGGLE;
+    }
+
+    public static String getKeySwitchOn() {
+        return KEY_SWITCH_ON;
+    }
+
+    public static String getKeySwitchOff() {
+        return KEY_SWITCH_OFF;
+    }
+
+    public static String getRuntimeCategoryKey() {
+        return KEY_CATEGORY_RUNTIME;
+    }
+
+    public static String getRuntimeKeySwitch() {
+        return KEY_SWITCH_RUNTIME;
+    }
+
+    public static String getRuntimeKeyControlToggle() {
+        return KEY_CONTROL_TOGGLE_RUNTIME;
+    }
+
+    public static String getRuntimeKeySwitchOn() {
+        return KEY_SWITCH_ON_RUNTIME;
+    }
+
+    public static String getRuntimeKeySwitchOff() {
+        return KEY_SWITCH_OFF_RUNTIME;
+    }
+
+    public static String getStableMessageSwitchOn() {
+        return KEY_SWITCH_ON;
+    }
+
+    public static String getStableMessageSwitchOff() {
+        return KEY_SWITCH_OFF;
     }
 }
