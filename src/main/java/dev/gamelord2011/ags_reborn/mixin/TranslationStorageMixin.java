@@ -7,20 +7,24 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import java.lang.reflect.Field;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Mixin(ClientLanguage.class)
+/**
+ * Mixin to inject dynamic translations into TranslationStorage.
+ * @since 4.0.0
+ */
 public class TranslationStorageMixin {
     private static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.TranslationStorageMixin");
 

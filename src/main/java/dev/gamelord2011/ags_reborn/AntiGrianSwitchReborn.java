@@ -18,13 +18,28 @@ import com.mojang.blaze3d.platform.InputConstants;
 
 import java.util.Optional;
 
+/**
+ * The main class for the mod.
+ */
 public class AntiGrianSwitchReborn implements ClientModInitializer {
+    /**
+     * The mod ID.
+     */
 	public static final String MOD_ID = "ags_reborn";
+    /**
+     * The varible that controls whether the falling entity bug is enabled.
+     */
     public static boolean enableFallingEntityBug = false;
     private static KeyMapping TGG;
     private static KeyMapping CCB;
 
+    /**
+     * The logger for this class.
+     */
 	public static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.AntiGrianSwitchReborn");
+    /**
+     * The category for the keybinds.
+     */
     public static KeyMapping.Category AGSR_CONFIG;
 
     private void toggleBug() {

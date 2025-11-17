@@ -7,6 +7,10 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Handles language key generation.
+ * @since 4.0.0
+ */
 public class AgsLang {
     private static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.AgsLang");
 
@@ -116,6 +120,12 @@ public class AgsLang {
         })
     );
 
+    /**
+     * Constricts a map for the language keys.
+     * @since 4.0.0
+     * @return A map with the translation keys.
+     * @param langCode The ISO 639-1 language code to generate for.
+     */
     public static Map<String, String> constructLanguageSet(String langCode) {
         LOGGER.info("constructLanguageSet called for langCode={}", langCode);
 

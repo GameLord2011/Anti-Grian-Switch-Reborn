@@ -16,12 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @SuppressWarnings("null")
 @Mixin(FallingBlockRenderer.class)
+/**
+ * Mixin to inject crash when AntiGrianSwitchReborn.enableFallingEntityBug === true.
+ * @see AntiGrianSwitchReborn
+ * @since 1.0.0
+ * @author GameLord2011
+ * @throws NullPointerException on purpose, this is not a bug.
+ */
 public class Boom {
 	@Inject(
-    method = "submit",
-    at = @At("HEAD")
-)
-private void injectCrash(
+        method = "submit",
+        at = @At("HEAD")
+    )
+    private void injectCrash(
         FallingBlockRenderState fallingBlockRenderState,
         PoseStack poseStack,
         SubmitNodeCollector submitNodeCollector,
