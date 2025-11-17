@@ -12,9 +12,11 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.server.packs.resources.ResourceManager;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.lang.reflect.Field;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

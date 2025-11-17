@@ -1,11 +1,14 @@
 package dev.gamelord2011.ags_reborn.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.gamelord2011.ags_reborn.AntiGrianSwitchReborn;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.entity.state.FallingBlockRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,11 +22,11 @@ public class Boom {
     at = @At("HEAD")
 )
 private void injectCrash(
-    FallingBlockRenderState fallingBlockRenderState,
-    PoseStack poseStack,
-    SubmitNodeCollector submitNodeCollector,
-    CameraRenderState cameraRenderState,
-    CallbackInfo ci
+        FallingBlockRenderState fallingBlockRenderState,
+        PoseStack poseStack,
+        SubmitNodeCollector submitNodeCollector,
+        CameraRenderState cameraRenderState,
+        CallbackInfo ci
 	) {
 		if(AntiGrianSwitchReborn.enableFallingEntityBug) {
 			Object renderer = null;
