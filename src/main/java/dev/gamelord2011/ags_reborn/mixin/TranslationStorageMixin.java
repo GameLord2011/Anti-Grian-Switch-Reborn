@@ -37,13 +37,11 @@ public class TranslationStorageMixin {
 
         try {
             langCode = Minecraft.getInstance().getLanguageManager().getSelected();
-            LOGGER.info("Hey, the current language is {}", langCode);
         } catch (Throwable t) {
             LOGGER.error("Failed to get the language, sry, here's why, {}", t);
         }
 
         Map<String, String> dynamicTranslations = AgsLang.constructLanguageSet(langCode);
-        LOGGER.info("Built {} dynamic translations for {}", dynamicTranslations.size(), langCode);
 
         // Inject dynamic translations into TranslationStorage
         try {
@@ -58,14 +56,12 @@ public class TranslationStorageMixin {
                             Map<String, String> translations = (Map<String, String>) val;
                             try {
                                 translations.putAll(dynamicTranslations);
-                                LOGGER.info("Merged dynamic translations into TranslationStorage (field {}).", field.getName());
                                 return;
                             } catch (UnsupportedOperationException uoe) {
                                 try {
                                     Map<String, String> newMap = new LinkedHashMap<>(translations);
                                     newMap.putAll(dynamicTranslations);
                                     field.set(storage, newMap);
-                                    LOGGER.info("Replaced TranslationStorage.{} with mutable map and merged dynamic translations.", field.getName());
                                     return;
                                 } catch (Throwable setException) {
                                     LOGGER.error("Failed to replace translations field: {}", setException.toString());
@@ -77,7 +73,6 @@ public class TranslationStorageMixin {
                 }
                 cls = cls.getSuperclass();
             }
-            LOGGER.warn("No translations map field found on TranslationStorage instance to merge into.");
         } catch (Throwable exception) {
             LOGGER.error("Failed merging dynamic translations: {}", exception.toString());
         }

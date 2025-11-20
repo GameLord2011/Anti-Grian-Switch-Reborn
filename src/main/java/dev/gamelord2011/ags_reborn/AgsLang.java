@@ -4,15 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Handles language key generation.
  * @since 4.0.0
  */
 public class AgsLang {
-    private static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.AgsLang");
 
     // Runtime-generated keys
     private static final String KEY_CATEGORY_RUNTIME;
@@ -28,15 +24,6 @@ public class AgsLang {
         KEY_CONTROL_TOGGLE_RUNTIME = prefix + UUID.randomUUID();
         KEY_SWITCH_ON_RUNTIME = prefix + UUID.randomUUID();
         KEY_SWITCH_OFF_RUNTIME = prefix + UUID.randomUUID();
-
-        LOGGER.info(
-            "Generated runtime keys - category={}, switch={}, control={}, on={}, off={}",
-            KEY_CATEGORY_RUNTIME,
-            KEY_SWITCH_RUNTIME,
-            KEY_CONTROL_TOGGLE_RUNTIME,
-            KEY_SWITCH_ON_RUNTIME,
-            KEY_SWITCH_OFF_RUNTIME
-        );
     }
 
     // Index constants
@@ -127,7 +114,6 @@ public class AgsLang {
      * @param langCode The ISO 639-1 language code to generate for.
      */
     public static Map<String, String> constructLanguageSet(String langCode) {
-        LOGGER.info("constructLanguageSet called for langCode={}", langCode);
 
         final String[] values = LANGUAGE_MAP.getOrDefault(langCode, LANGUAGE_MAP.get("en_us"));
         Map<String, String> translationsMap = new LinkedHashMap<>();
@@ -143,7 +129,6 @@ public class AgsLang {
         translationsMap.put(KEY_SWITCH_ON_RUNTIME, values[AGS_ON]);
         translationsMap.put(KEY_SWITCH_OFF_RUNTIME, values[AGS_OFF]);
 
-        LOGGER.info("constructLanguageSet produced {} entries for lang {}", translationsMap.size(), langCode);
         return translationsMap;
     }
 

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @SuppressWarnings("null")
 @Mixin(FallingBlockRenderer.class)
 /**
- * Mixin to inject crash when AntiGrianSwitchReborn.enableFallingEntityBug === true && when a fallingBlockEntity is being randered.
+ * Mixin to inject crash when AntiGrianSwitchReborn.enableFallingEntityBug == true && when a fallingBlockEntity is being randered.
  * @see AntiGrianSwitchReborn
  * @since 1.0.0
  * @author GameLord2011

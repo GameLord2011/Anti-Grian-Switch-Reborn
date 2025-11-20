@@ -11,12 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.mojang.blaze3d.platform.InputConstants;
-
-import java.util.Optional;
 
 /**
  * The main class for the mod.
@@ -34,17 +29,12 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
     private static KeyMapping CCB;
 
     /**
-     * The logger for this class.
-     */
-	public static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.AntiGrianSwitchReborn");
-    /**
      * The category for the keybinds.
      */
     public static KeyMapping.Category AGSR_CONFIG;
 
     private void toggleBug() {
         enableFallingEntityBug = !enableFallingEntityBug;
-        try { LOGGER.info("Toggled enableFallingEntityBug -> {}", enableFallingEntityBug); } catch (Throwable ignored) {}
         Minecraft.getInstance().gui.getChat().addMessage(
             // display translatable using whatever key was injected for the runtime message key
             Component.translatable(enableFallingEntityBug ? AgsLang.getRuntimeKeySwitchOn() : AgsLang.getRuntimeKeySwitchOff())
@@ -53,10 +43,6 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
 
     public void onInitializeClient() {
         // register keybindings immediately using the runtime-random keys (generated at class load)
-        try { 
-            LOGGER.info("Registering keybindings using runtime keys: category={}, switch={}, control={}",
-            AgsLang.getRuntimeCategoryKey(), AgsLang.getRuntimeKeySwitch(), AgsLang.getRuntimeKeyControlToggle());
-        } catch (Throwable ignored) {}
         AGSR_CONFIG = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(MOD_ID, AgsLang.getRuntimeCategoryKey()));
         TGG = KeyBindingHelper.registerKeyBinding(new KeyMapping(
             AgsLang.getRuntimeKeySwitch(),
@@ -68,9 +54,6 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
             GLFW.GLFW_KEY_Y,
             AGSR_CONFIG
         ));
-        try {
-            LOGGER.info("Keybindings registered: TGG={}, CCB={}", Optional.ofNullable(TGG).map(Object::toString).orElse("null"), Optional.ofNullable(CCB).map(Object::toString).orElse("null"));
-        } catch (Throwable ignored) {}
 
         // key handling
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
