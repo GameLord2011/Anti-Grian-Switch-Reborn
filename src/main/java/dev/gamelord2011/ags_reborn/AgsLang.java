@@ -1,5 +1,7 @@
 package dev.gamelord2011.ags_reborn;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -10,6 +12,31 @@ import java.util.UUID;
  */
 public class AgsLang {
 
+    /**
+     * Generates a SHA3-512 hash of the input string.
+     * @since 4.1.0
+     * @param input The input string to hash.
+     * @return The hashed string.
+     */
+    private static String hashString(String input) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA3-512");
+            byte[] hashBytes = digest.digest(input.getBytes());
+
+            // Convert the byte array to a hexadecimal string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return input;
+        }
+    }
+
     // Runtime-generated keys
     private static final String KEY_CATEGORY_RUNTIME;
     private static final String KEY_SWITCH_RUNTIME;
@@ -18,12 +45,11 @@ public class AgsLang {
     private static final String KEY_SWITCH_OFF_RUNTIME;
 
     static {
-        final String prefix = UUID.randomUUID().toString() + ".";
-        KEY_CATEGORY_RUNTIME = prefix + UUID.randomUUID();
-        KEY_SWITCH_RUNTIME = prefix + UUID.randomUUID();
-        KEY_CONTROL_TOGGLE_RUNTIME = prefix + UUID.randomUUID();
-        KEY_SWITCH_ON_RUNTIME = prefix + UUID.randomUUID();
-        KEY_SWITCH_OFF_RUNTIME = prefix + UUID.randomUUID();
+        KEY_CATEGORY_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_SWITCH_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_CONTROL_TOGGLE_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_SWITCH_ON_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_SWITCH_OFF_RUNTIME = hashString(UUID.randomUUID().toString());
     }
 
     // Index constants
@@ -59,7 +85,7 @@ public class AgsLang {
         Map.entry("en_pt", new String[]{
             "Anti-Grian Switch Hoist'd Again",
             "Anti-Grian Lever",
-            "Be ye holdin’ Control? (Y/N)",
+            "Be ye holdin’ Control? (Y/N)", // Ambigous unicode character alert! (U+2019)
             "Anti-Grian Lever: Aye!",
             "Anti-Grian Lever: Nay!"
         }),
@@ -71,7 +97,7 @@ public class AgsLang {
             "Anti-Grian Swich: NU"
         }),
         Map.entry("enws", new String[]{
-            "Anti-Grian Lever Reawaken’d",
+            "Anti-Grian Lever Reawaken’d", // Ambigous unicode character alert! (U+2019)
             "Anti-Grian Lever",
             "Shall Control Be Held? (Yea/Nay)",
             "Anti-Grian Lever: Engaged",
@@ -92,11 +118,11 @@ public class AgsLang {
             "ℲℲO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀"
         }),
         Map.entry("tlh_aa", new String[]{
-            "grian wIvHa' chu' Ha'DIbaH",
-            "grian wIvHa' SeHlaw",
-            "SeHlaw yI'uch'a'? (Y/N)",
-            "grian wIvHa': Qap",
-            "grian wIvHa': Qapbe'"
+            "grian wIvHa\' chu\' Ha\'DIbaH",
+            "grian wIvHa\' SeHlaw",
+            "SeHlaw yI\'uch\'a\'? (Y/N)",
+            "grian wIvHa\': Qap",
+            "grian wIvHa\': Qapbe\'"
         }),
         Map.entry("qya_aa", new String[]{
             "Anti-Grian Lelya Ata",
@@ -122,7 +148,7 @@ public class AgsLang {
 
         String categoryKey = "key.category.ags_reborn." + KEY_CATEGORY_RUNTIME;
 
-        translationsMap.put(categoryKey, values[AGS_CATEGORY]);
+        translationsMap.put(categoryKey, values[AGS_CATEGORY]); // Handles the category key, as Minecraft handles these weirdly.
 
         translationsMap.put(KEY_SWITCH_RUNTIME, values[AGS_SWITCH]);
         translationsMap.put(KEY_CONTROL_TOGGLE_RUNTIME, values[AGS_CONTROL]);

@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
@@ -15,6 +17,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 
 /**
  * The main class for the mod.
+ * @since 1.0.0
  */
 public class AntiGrianSwitchReborn implements ClientModInitializer {
     /**
@@ -25,19 +28,33 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
      * The varible that controls whether the falling entity bug is enabled.
      */
     public static boolean enableFallingEntityBug = false;
+    /**
+     * The keybinding for toggling the bug.
+     * @since 2.0.0
+     */
     private static KeyMapping TGG;
+    /**
+     * Some hacky configuration.
+     * @since 2.0.0
+     */
     private static KeyMapping CCB;
 
     /**
      * The category for the keybinds.
+     * @since 2.0.0
      */
     public static KeyMapping.Category AGSR_CONFIG;
 
+    /**
+     * Toggles the bug and notifies the player.
+     * @since 3.0.0
+     * @throws NullPointerExecption but does so inderectly. <strong>This is intentional.</strong>
+     */
     private void toggleBug() {
         enableFallingEntityBug = !enableFallingEntityBug;
         Minecraft.getInstance().gui.getChat().addMessage(
-            // display translatable using whatever key was injected for the runtime message key
-            Component.translatable(enableFallingEntityBug ? AgsLang.getRuntimeKeySwitchOn() : AgsLang.getRuntimeKeySwitchOff())
+            Component.translatable(enableFallingEntityBug ? AgsLang.getRuntimeKeySwitchOn() : AgsLang.getRuntimeKeySwitchOff()) // The odds that anyone'll see this are slim, but still possible.
+                .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x9c2c2d))) // The color that Grian uses in his skin's shirt.
         );
     }
 
@@ -58,7 +75,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
         // key handling
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (TGG == null || CCB == null) return;
-            int boundKey = KeyBindingHelper.getBoundKeyOf(CCB).getValue();
+            int boundKey = KeyBindingHelper.getBoundKeyOf(CCB).getValue(); // The value of the "Should Control Be Held" keybind.
             boolean tggPressed = TGG.consumeClick();
 
             if (boundKey == GLFW.GLFW_KEY_Y) {
