@@ -1,4 +1,4 @@
-package dev.gamelord2011.ags_reborn.mixin;
+package dev.gamelord2011.ags_reborn.mixins;
 
 import dev.gamelord2011.ags_reborn.AgsLang;
 

@@ -15,7 +15,6 @@ This mod takes advantage of a strange quirk in how minecraft renders. This is ba
 If you use this mod in a video that will be publicly viewable (e.g. posted on tik-tok or youtube) then you have to:
 
 - Provide links to the modrinth, curseforge, and github pages.
-- Have a segment explaining the mod.
 - NOT take attribution for the mod.
 
 ---
