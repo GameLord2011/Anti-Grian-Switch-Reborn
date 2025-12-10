@@ -4,7 +4,7 @@ This is a reproduction of the Anti-Grian switch from Hermitcraft season 9, and (
 
 ## Use
 
-By default, you configure the anti Grian switch using `CTRL + G`. You use the keybind `Should Control Be Held (AGS Reborn)(y/n)` to, as the name implies, configure wether or not the control key should be held. If it's set to `n`, than you don't need to hold control to activate it, if it's set to anything else, it will auto-set to `y`. If you place a gravity block when the switch is set to on, then the game will crash.
+By default, you toggle the anti Grian switch using `CTRL + G`. You use the keybind `Should Control Be Held (AGS Reborn)(y/n)` to, as the name implies, configure wether or not the control key should be held. If it's set to `n`, than you don't need to hold control to activate it, if it's set to anything else, it will auto-set to `y`. If you place a gravity block when the switch is set to on, then the game will crash.
 
 ## How it works
 

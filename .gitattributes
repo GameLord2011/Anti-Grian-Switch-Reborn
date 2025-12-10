@@ -7,3 +7,12 @@
 # These are Windows script files and should use crlf
 *.bat           text eol=crlf
 
+#Put lf on all source code files.
+*.java          text eol=lf
+*.gradle        text eol=lf
+/LISCENSE       text eol=lf
+/README.md      text eol=lf
+/gradle.properties text eol=lf
+*.json          text eol=lf
+/.gitattributes text eol=lf
+/.gitignore     text eol=lf
