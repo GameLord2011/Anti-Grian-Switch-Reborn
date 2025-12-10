@@ -30,11 +30,10 @@ public class TranslationStorageMixin {
         String langCode;
         try {
             langCode = Minecraft.getInstance().getLanguageManager().getSelected();
+            map.putAll(AgsLang.constructLanguageSet(langCode));
         } catch (Throwable t) {
             LOGGER.error("Someone's code broke my langcode, here's the error: {}", t);
-            langCode = "en_us";
         }
-        map.putAll(AgsLang.constructLanguageSet(langCode));
         return map;
     }
 }
