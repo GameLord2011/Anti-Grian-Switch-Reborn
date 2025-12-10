@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -60,7 +60,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
 
     public void onInitializeClient() {
         // register keybindings immediately using the runtime-random keys (generated at class load)
-        AGSR_CONFIG = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(MOD_ID, AgsLang.getRuntimeCategoryKey()));
+        AGSR_CONFIG = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, AgsLang.getRuntimeCategoryKey()));
         TGG = KeyBindingHelper.registerKeyBinding(new KeyMapping(
             AgsLang.getRuntimeKeySwitch(),
             GLFW.GLFW_KEY_G,

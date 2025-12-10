@@ -4,10 +4,10 @@ plugins {
 }
 
 repositories {
-    maven {
+    /*maven {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
-    }
+    }*/
 }
 
 version = project.mod_version
@@ -19,10 +19,10 @@ base {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.21.10:2025.10.12@zip")
-    }
+	mappings loom.officialMojangMappings() // loom.layered() {
+        //officalMojangMappings()
+        //parchment("org.parchmentmc.data:parchment-1.21.10:2025.10.12@zip")
+    //}
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
