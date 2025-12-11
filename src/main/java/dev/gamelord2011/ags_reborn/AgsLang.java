@@ -111,11 +111,11 @@ public class AgsLang {
             "Anti-Grian Toggle: OFF"
         }),
         Map.entry("en_ud", new String[]{
-            "uɹoqǝɹ ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
-            "ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
+            "uɹoqǝɹ ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀",
+            "ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀",
             "(N/⅄) plǝɥ ǝq loɹʇuoƆ plnoɥS",
-            "NO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
-            "ℲℲO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀"
+            "NO :ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀",
+            "ℲℲO :ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀"
         }),
         Map.entry("tlh_aa", new String[]{
             "grian wIvHa\' chu\' Ha\'DIbaH",
