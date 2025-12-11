@@ -18,11 +18,10 @@ import java.lang.NullPointerException;
 
 @Mixin(FallingBlockRenderer.class)
 /**
- * Mixin to inject crash when AntiGrianSwitchReborn.enableFallingEntityBug == true && when a fallingBlockEntity is being randered.
+ * Mixin to inject crash when AntiGrianSwitchReborn.enableFallingEntityBug == true && when a fallingBlockEntity is being rendered.
  * @see AntiGrianSwitchReborn
  * @since 1.0.0
  * @author GameLord2011
- * @throws NullPointerException on purpose, this is not a bug.
  */
 public class Boom {
 	@Inject(
@@ -43,7 +42,7 @@ public class Boom {
             );
 
             npe.setStackTrace(
-                new StackTraceElement[] { // I'm gonna have fun refactoring this for 1.21.12 next year, see ya obfuscation.
+                new StackTraceElement[] { // I'm gonna have fun refactoring this for 26.1, see ya obfuscation.
                     new StackTraceElement("me.pepperbell.continuity.impl.client.ProcessingContextImpl", "<init>", "ProcessingContextImpl.java", 19),
                     new StackTraceElement("me.pepperbell.continuity.client.model.CTMBakedModel$CTMQuadTransform", "<init>", "CTMBakedModel.java", 70),
                     new StackTraceElement("java.base/java.lang.ThreadLocal$SuppliedThreadLocal", "initialValue", "ThreadLocal.java", 309),

@@ -32,7 +32,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
      * The keybinding for toggling the bug.
      * @since 2.0.0
      */
-    private static KeyMapping TGG;
+    private static KeyMapping AGS;
     /**
      * Some hacky configuration.
      * @since 2.0.0
@@ -47,7 +47,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
 
     /**
      * Toggles the bug and notifies the player.
-     * @since 3.0.0
+     * @since 1.0.0
      * @throws NullPointerExecption but does so inderectly. <strong>This is intentional.</strong>
      */
     private void toggleBug() {
@@ -61,7 +61,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
     public void onInitializeClient() {
         // register keybindings immediately using the runtime-random keys (generated at class load)
         AGSR_CONFIG = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, AgsLang.getRuntimeCategoryKey()));
-        TGG = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        AGS = KeyBindingHelper.registerKeyBinding(new KeyMapping(
             AgsLang.getRuntimeKeySwitch(),
             GLFW.GLFW_KEY_G,
             AGSR_CONFIG
@@ -74,23 +74,23 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
 
         // key handling
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (TGG == null || CCB == null) return;
+            if (AGS == null || CCB == null) return;
             int boundKey = KeyBindingHelper.getBoundKeyOf(CCB).getValue(); // The value of the "Should Control Be Held" keybind.
-            boolean tggPressed = TGG.consumeClick();
+            boolean agsPressed = AGS.consumeClick();
+            long windowHandle = client.getWindow().handle();
+            boolean ctrlPressed = 
+                    GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
 
             if (boundKey == GLFW.GLFW_KEY_Y) {
-                boolean ctrlPressed = 
-                    GLFW.glfwGetKey(client.getWindow().handle(), GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
-                    || GLFW.glfwGetKey(client.getWindow().handle(), GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
-
-                if (tggPressed && ctrlPressed) {
+                if (agsPressed && ctrlPressed) {
                     toggleBug();
                 }
             } else {
                 if (boundKey != GLFW.GLFW_KEY_N) {
                     CCB.setKey(InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_Y));
                 }
-                if (tggPressed) {
+                if (agsPressed) {
                     toggleBug();
                 }
             }
