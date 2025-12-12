@@ -13,7 +13,7 @@ import net.minecraft.resources.Identifier;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.platform.InputConstants.Type;
 
 /**
  * The main class for the mod.
@@ -72,7 +72,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
             AGSR_CONFIG
         ));
 
-        // key handling
+        // key handling, more e-🐟-ent than you'd think (roughly +3 µs / client tick on my pc)
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (AGS == null || CCB == null) return;
             int boundKey = KeyBindingHelper.getBoundKeyOf(CCB).getValue(); // The value of the "Should Control Be Held" keybind.
@@ -82,13 +82,13 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
                     GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
                     || GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
 
-            if (boundKey == GLFW.GLFW_KEY_Y) {
+            if (boundKey == GLFW.GLFW_KEY_Y) { // Smol check, I think it's less than 1 µs, but I do need to check that.
                 if (agsPressed && ctrlPressed) {
                     toggleBug();
                 }
             } else {
                 if (boundKey != GLFW.GLFW_KEY_N) {
-                    CCB.setKey(InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_Y));
+                    CCB.setKey(Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_Y));
                 }
                 if (agsPressed) {
                     toggleBug();
