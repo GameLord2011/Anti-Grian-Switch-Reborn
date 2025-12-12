@@ -42,7 +42,7 @@ public class Boom {
             );
 
             npe.setStackTrace(
-                new StackTraceElement[] { // I'm gonna have fun refactoring this for 26.1, see ya obfuscation.
+                new StackTraceElement[] {
                     new StackTraceElement("me.pepperbell.continuity.impl.client.ProcessingContextImpl", "<init>", "ProcessingContextImpl.java", 19),
                     new StackTraceElement("me.pepperbell.continuity.client.model.CTMBakedModel$CTMQuadTransform", "<init>", "CTMBakedModel.java", 70),
                     new StackTraceElement("java.base/java.lang.ThreadLocal$SuppliedThreadLocal", "initialValue", "ThreadLocal.java", 309),
