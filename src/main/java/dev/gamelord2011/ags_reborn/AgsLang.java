@@ -1,14 +1,41 @@
 package dev.gamelord2011.ags_reborn;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+/**
+ * Handles language key generation.
+ * @since 4.0.0
+ */
 public class AgsLang {
-    private static final Logger LOGGER = LoggerFactory.getLogger("ags_reborn.AgsLang");
+
+    /**
+     * Generates a SHA3-512 hash of the input string.
+     * @since 4.1.0
+     * @param input The input string to hash.
+     * @return The hashed string.
+     */
+    private static String hashString(String input) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA3-512");
+            byte[] hashBytes = digest.digest(input.getBytes());
+
+            // Convert the byte array to a hexadecimal string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return input;
+        }
+    }
 
     // Runtime-generated keys
     private static final String KEY_CATEGORY_RUNTIME;
@@ -18,21 +45,11 @@ public class AgsLang {
     private static final String KEY_SWITCH_OFF_RUNTIME;
 
     static {
-        final String prefix = UUID.randomUUID().toString() + ".";
-        KEY_CATEGORY_RUNTIME = prefix + UUID.randomUUID();
-        KEY_SWITCH_RUNTIME = prefix + UUID.randomUUID();
-        KEY_CONTROL_TOGGLE_RUNTIME = prefix + UUID.randomUUID();
-        KEY_SWITCH_ON_RUNTIME = prefix + UUID.randomUUID();
-        KEY_SWITCH_OFF_RUNTIME = prefix + UUID.randomUUID();
-
-        LOGGER.info(
-            "Generated runtime keys - category={}, switch={}, control={}, on={}, off={}",
-            KEY_CATEGORY_RUNTIME,
-            KEY_SWITCH_RUNTIME,
-            KEY_CONTROL_TOGGLE_RUNTIME,
-            KEY_SWITCH_ON_RUNTIME,
-            KEY_SWITCH_OFF_RUNTIME
-        );
+        KEY_CATEGORY_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_SWITCH_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_CONTROL_TOGGLE_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_SWITCH_ON_RUNTIME = hashString(UUID.randomUUID().toString());
+        KEY_SWITCH_OFF_RUNTIME = hashString(UUID.randomUUID().toString());
     }
 
     // Index constants
@@ -68,7 +85,7 @@ public class AgsLang {
         Map.entry("en_pt", new String[]{
             "Anti-Grian Switch Hoist'd Again",
             "Anti-Grian Lever",
-            "Be ye holdin’ Control? (Y/N)",
+            "Be ye holdin’ Control? (Y/N)", // Ambigous unicode character alert! (U+2019)
             "Anti-Grian Lever: Aye!",
             "Anti-Grian Lever: Nay!"
         }),
@@ -80,7 +97,7 @@ public class AgsLang {
             "Anti-Grian Swich: NU"
         }),
         Map.entry("enws", new String[]{
-            "Anti-Grian Lever Reawaken’d",
+            "Anti-Grian Lever Reawaken’d", // Ambigous unicode character alert! (U+2019)
             "Anti-Grian Lever",
             "Shall Control Be Held? (Yea/Nay)",
             "Anti-Grian Lever: Engaged",
@@ -94,18 +111,18 @@ public class AgsLang {
             "Anti-Grian Toggle: OFF"
         }),
         Map.entry("en_ud", new String[]{
-            "uɹoqǝɹ ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
-            "ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
+            "uɹoqǝɹ ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀",
+            "ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀",
             "(N/⅄) plǝɥ ǝq loɹʇuoƆ plnoɥS",
-            "NO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀",
-            "ℲℲO :ɥɔʇᴉʍS uᴉɐɹ⅁ ᴉʇu∀"
+            "NO :ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀",
+            "ℲℲO :ɥɔʇᴉʍS uɐᴉɹ⅁ ᴉʇu∀"
         }),
         Map.entry("tlh_aa", new String[]{
-            "grian wIvHa' chu' Ha'DIbaH",
-            "grian wIvHa' SeHlaw",
-            "SeHlaw yI'uch'a'? (Y/N)",
-            "grian wIvHa': Qap",
-            "grian wIvHa': Qapbe'"
+            "grian wIvHa\' chu\' Ha\'DIbaH",
+            "grian wIvHa\' SeHlaw",
+            "SeHlaw yI\'uch\'a\'? (Y/N)",
+            "grian wIvHa\': Qap",
+            "grian wIvHa\': Qapbe\'"
         }),
         Map.entry("qya_aa", new String[]{
             "Anti-Grian Lelya Ata",
@@ -116,8 +133,13 @@ public class AgsLang {
         })
     );
 
+    /**
+     * Constricts a map for the language keys.
+     * @since 4.0.0
+     * @return A map with the translation keys.
+     * @param langCode The ISO 639-1 language code to generate for.
+     */
     public static Map<String, String> constructLanguageSet(String langCode) {
-        LOGGER.info("constructLanguageSet called for langCode={}", langCode);
 
         final String[] values = LANGUAGE_MAP.getOrDefault(langCode, LANGUAGE_MAP.get("en_us"));
         Map<String, String> translationsMap = new LinkedHashMap<>();
@@ -126,14 +148,13 @@ public class AgsLang {
 
         String categoryKey = "key.category.ags_reborn." + KEY_CATEGORY_RUNTIME;
 
-        translationsMap.put(categoryKey, values[AGS_CATEGORY]);
+        translationsMap.put(categoryKey, values[AGS_CATEGORY]); // Handles the category key, as Minecraft handles these weirdly.
 
         translationsMap.put(KEY_SWITCH_RUNTIME, values[AGS_SWITCH]);
         translationsMap.put(KEY_CONTROL_TOGGLE_RUNTIME, values[AGS_CONTROL]);
         translationsMap.put(KEY_SWITCH_ON_RUNTIME, values[AGS_ON]);
         translationsMap.put(KEY_SWITCH_OFF_RUNTIME, values[AGS_OFF]);
 
-        LOGGER.info("constructLanguageSet produced {} entries for lang {}", translationsMap.size(), langCode);
         return translationsMap;
     }
 

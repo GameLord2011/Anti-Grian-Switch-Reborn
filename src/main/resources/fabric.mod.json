@@ -8,7 +8,6 @@
 		"GameLord2011 (Proffessional Noob)"
 	],
 	"license": "MIT",
-	"environments": "client",
 	"icon": "assets/ags_reborn/icon.png",
 	"environment": "client",
 	"entrypoints": {
@@ -24,8 +23,10 @@
 		"sources": "https://github.com/GameLord2011/Anti-Grian-Switch-Reborn"
 	},
 	"custom": {
-		"parent": "fabric-api",
 		"modmenu": {
+			"parent": {
+				"id": "fabric-api"
+			},
 			"links": {
 				"modmenu.modrinth": "https://modrinth.com/mod/anti-grian-switch-reborn",
 				"modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/anti-grian-switch-reborn",
@@ -35,7 +36,7 @@
 	},
 	"depends": {
 		"fabricloader": ">=0.17.3",
-		"minecraft": "~1.21.10",
+		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*" 

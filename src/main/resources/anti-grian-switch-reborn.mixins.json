@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "dev.gamelord2011.ags_reborn.mixin",
+	"package": "dev.gamelord2011.ags_reborn.mixins",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"Boom",
