@@ -39,8 +39,7 @@
 		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*",
-		"fabric-key-binding-api-v1": "*" ,
-		"gmlrdlib": ">=1.0.0"
+		"fabric-key-binding-api-v1": "*" 
 	},
 	"suggests": {
 		"continuity": "*",
