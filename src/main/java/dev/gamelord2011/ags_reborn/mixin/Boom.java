@@ -45,8 +45,7 @@ public class Boom {
                 new StackTraceElement[] {
                     new StackTraceElement("me.pepperbell.continuity.impl.client.ProcessingContextImpl", "<init>", "ProcessingContextImpl.java", 19),
                     new StackTraceElement("me.pepperbell.continuity.client.model.CTMBakedModel$CTMQuadTransform", "<init>", "CTMBakedModel.java", 70),
-                    new StackTraceElement("me.pepperbell.continuity.client.model.ModelObjectsContainer", "<init>", "ModelObjectsContainer.java", 10),
-                    new StackTraceElement("java.base/java.lang.ThreadLocal$SuppliedThreadLocal", "initialValue", "ThreadLocal.java", 305),
+                    new StackTraceElement("java.base/java.lang.ThreadLocal$SuppliedThreadLocal", "initialValue", "ThreadLocal.java", 309),
                     new StackTraceElement("java.base/java.lang.ThreadLocal", "setInitialValue", "ThreadLocal.java", 195),
                     new StackTraceElement("java.base/java.lang.ThreadLocal", "get", "ThreadLocal.java", 172),
                     new StackTraceElement("me.pepperbell.continuity.client.model.ModelObjectsContainer", "get", "ModelObjectsContainer.java", 18),
