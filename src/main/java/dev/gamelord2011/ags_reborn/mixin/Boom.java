@@ -1,4 +1,4 @@
-package dev.gamelord2011.ags_reborn.mixins;
+package dev.gamelord2011.ags_reborn.mixin;
 
 import dev.gamelord2011.ags_reborn.AntiGrianSwitchReborn;
 

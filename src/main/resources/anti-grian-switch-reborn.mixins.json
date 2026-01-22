@@ -1,10 +1,9 @@
 {
 	"required": true,
-	"package": "dev.gamelord2011.ags_reborn.mixins",
+	"package": "dev.gamelord2011.ags_reborn.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"Boom",
-		"TranslationStorageMixin"
+		"Boom"
 	],
 	"injectors": {
 		"defaultRequire": 1
