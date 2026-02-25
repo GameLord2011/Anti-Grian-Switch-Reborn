@@ -19,7 +19,7 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modImplementation "io.github.gamelord2011.gmlrdlib:gmlrdlib:1.0.0"
+	modImplementation "io.github.gamelord2011.gmlrdlib:gmlrdlib:1.2.0"
 }
 
 processResources {

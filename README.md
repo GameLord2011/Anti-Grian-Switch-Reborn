@@ -8,7 +8,7 @@ By default, you toggle the anti Grian switch using `CTRL + G`. You use the keybi
 
 ## How it works
 
-This mod takes advantage of a strange quirk in how minecraft renders. This is based off a cross-compatibility error between [Continuity](https://modrinth.com/mod/continuity) and [Sodium](https://modrinth.com/mod/sodium) in 1.19 versions when [Indium](https://modrinth.com/mod/indium) is not present where Sodium's rendering engine did not handle Fabric Rendering API calls correctly, and threw null pointer errors. My mod crashes the game with a fake stacktrace and `NullPointerExecption` when it tries to render a falling block entity and the switch is on. It is a renderthread crash, which is considered a "safe" crash. It should not corrupt your worlds¹ at least, it didn't in my testing.
+This mod takes advantage of a strange quirk in how minecraft renders. This is based off a cross-compatibility error between [Continuity](https://modrinth.com/mod/continuity) and [Sodium](https://modrinth.com/mod/sodium) in 1.19 versions when [Indium](https://modrinth.com/mod/indium) was not present where Sodium's rendering engine did not handle Fabric Rendering API calls correctly, and threw null pointer errors. My mod crashes the game with a fake stacktrace and `NullPointerExecption` when it tries to render a falling block entity and the switch is on. It is a renderthread crash, which is considered a "safe" crash. It should not corrupt your worlds¹ at least, it didn't in my testing.
 
 ## Video usage guidelines
 
