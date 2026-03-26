@@ -2,7 +2,7 @@ package dev.gamelord2011.ags_reborn;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -52,7 +52,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
      */
     private void toggleBug() {
         enableFallingEntityBug = !enableFallingEntityBug;
-        Minecraft.getInstance().gui.getChat().addMessage(
+        Minecraft.getInstance().gui.getChat().addClientSystemMessage(
             Component.translatable(enableFallingEntityBug ? AgsLang.getRuntimeKeySwitchOn() : AgsLang.getRuntimeKeySwitchOff()) // The odds that anyone'll see this are slim, but still possible.
                 .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x9c2c2d))) // The color that Grian uses in his skin's shirt.
         );
@@ -61,12 +61,12 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
     public void onInitializeClient() {
         // register keybindings immediately using the runtime-random keys (generated at class load)
         AGSR_CONFIG = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, AgsLang.getRuntimeCategoryKey()));
-        AGS = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        AGS = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             AgsLang.getRuntimeKeySwitch(),
             GLFW.GLFW_KEY_G,
             AGSR_CONFIG
         ));
-        CCB = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        CCB = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             AgsLang.getRuntimeKeyControlToggle(),
             GLFW.GLFW_KEY_Y,
             AGSR_CONFIG
@@ -75,7 +75,7 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
         // key handling, more e-🐟-ent than you'd think (roughly +3 µs / client tick on my pc)
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (AGS == null || CCB == null) return;
-            int boundKey = KeyBindingHelper.getBoundKeyOf(CCB).getValue(); // The value of the "Should Control Be Held" keybind.
+            int boundKey = KeyMappingHelper.getBoundKeyOf(CCB).getValue(); // The value of the "Should Control Be Held" keybind.
             boolean agsPressed = AGS.consumeClick();
             long windowHandle = client.getWindow().handle();
             boolean ctrlPressed = 
