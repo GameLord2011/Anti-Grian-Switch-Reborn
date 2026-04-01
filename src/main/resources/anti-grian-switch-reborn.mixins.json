@@ -3,8 +3,7 @@
 	"package": "dev.gamelord2011.ags_reborn.mixins",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"Boom",
-		"TranslationStorageMixin"
+		"Boom"
 	],
 	"injectors": {
 		"defaultRequire": 1
