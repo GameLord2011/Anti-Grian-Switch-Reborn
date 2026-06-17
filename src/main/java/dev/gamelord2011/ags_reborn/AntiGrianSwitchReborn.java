@@ -51,8 +51,8 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
      * @throws NullPointerExecption but does so inderectly. <strong>This is intentional.</strong>
      */
     private void toggleBug() {
-        enableFallingEntityBug = !enableFallingEntityBug;
-        Minecraft.getInstance().gui.getChat().addClientSystemMessage(
+        enableFallingEntityBug ^= true;
+        Minecraft.getInstance().gui.hud.getChat().addClientSystemMessage(
             Component.translatable(enableFallingEntityBug ? AgsLang.getRuntimeKeySwitchOn() : AgsLang.getRuntimeKeySwitchOff()) // The odds that anyone'll see this are slim, but still possible.
                 .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x9c2c2d))) // The color that Grian uses in his skin's shirt.
         );
@@ -78,12 +78,10 @@ public class AntiGrianSwitchReborn implements ClientModInitializer {
             int boundKey = KeyMappingHelper.getBoundKeyOf(CCB).getValue(); // The value of the "Should Control Be Held" keybind.
             boolean agsPressed = AGS.consumeClick();
             long windowHandle = client.getWindow().handle();
-            boolean ctrlPressed = 
-                    GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
-                    || GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
 
             if (boundKey == GLFW.GLFW_KEY_Y) { // Smol check, I think it's less than 1 µs, but I do need to check that.
-                if (agsPressed && ctrlPressed) {
+                if (agsPressed && (GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS)) {
                     toggleBug();
                 }
             } else {

@@ -27,10 +27,8 @@ public class TranslationStorageMixin {
         ordinal = 0
     )
     private static Map<String, String> injectDynamicTranslations(Map<String, String> map) {
-        String langCode;
         try {
-            langCode = Minecraft.getInstance().getLanguageManager().getSelected();
-            map.putAll(AgsLang.constructLanguageSet(langCode));
+            map.putAll(AgsLang.constructLanguageSet(Minecraft.getInstance().getLanguageManager().getSelected()));
         } catch (Throwable t) {
             LOGGER.error("Someone's code broke my langcode, here's the error: {}", t);
         }

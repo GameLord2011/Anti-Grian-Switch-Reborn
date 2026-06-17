@@ -13,7 +13,8 @@ import java.util.UUID;
 public class AgsLang {
 
     /**
-     * Generates a SHA3-512 hash of the input string.
+     * Generates a SHA3-512 hash of the input string. I think that this was copy-pasted
+     * from the Java documentation.
      * @since 4.1.0
      * @param input The input string to hash.
      * @return The hashed string.
